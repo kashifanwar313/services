@@ -25,6 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/services', [ServicesController::class, 'services']);
 Route::get('/stories', [StoryController::class, 'stories']);
-Route::get('/squareFoots', [SquareFootController::class, 'squareFoots']);
+Route::get('/square-foots', [SquareFootController::class, 'squareFoots']);
 Route::get('/driveway', [DrivewayController::class, 'driveway']);
 Route::get('/nu-of-cars', [NuofcarController::class, 'nu_of_cars']);

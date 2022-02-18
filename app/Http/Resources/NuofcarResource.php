@@ -14,6 +14,10 @@ class NuofcarResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'value' => $this->id,
+            'label' => $this->nu_of_cars
+        ];
     }
 }

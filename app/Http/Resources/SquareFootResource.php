@@ -16,7 +16,8 @@ class SquareFootResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'square_foot' => $this->square_foot
+            'value' => $this->id,
+            'label' => $this->square_foot
         ];
     }
 }

@@ -15,4 +15,9 @@ class Plan extends Model
     {
     	return $this->belongsTo(Service::class);
     }
+
+    public function price_sheet()
+    {
+    	return $this->hasMany(PriceSheet::class);
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StoryController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\SquareFootController;
+use App\Http\Controllers\Api\QuoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,4 @@ Route::get('/stories', [StoryController::class, 'stories']);
 Route::get('/square-foots', [SquareFootController::class, 'squareFoots']);
 Route::get('/driveway', [DrivewayController::class, 'driveway']);
 Route::get('/nu-of-cars', [NuofcarController::class, 'nu_of_cars']);
+Route::post('/quote', [QuoteController::class, 'quote']);

@@ -46,9 +46,9 @@
                                 @foreach ($price_sheets as $price_sheet)
                                     <tr>
                                         <td>{{ $price_sheet->id }}</td>
-                                        <td>{{ $price_sheet->square_foot->square_foot }}</td>
-                                        <td>{{ $price_sheet->story->story }}</td>
-                                        <td>{{ $price_sheet->plan->plan_name }}</td>
+                                        <td>{{ $price_sheet->square_foot()->exists() ? $price_sheet->square_foot->square_foot : 'null' }}</td>
+                                        <td>{{ $price_sheet->story()->exists() ? $price_sheet->story->story : 'null' }}</td>
+                                        <td>{{ $price_sheet->plan()->exists() ? $price_sheet->plan->plan_name : 'null' }}</td>
                                         <td>{{ $price_sheet->time }}</td>
                                         <td>{{ $price_sheet->price }}</td>
                                         <td>

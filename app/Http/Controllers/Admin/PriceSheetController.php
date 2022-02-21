@@ -18,7 +18,7 @@ class PriceSheetController extends Controller
      */
     public function index()
     {
-        $price_sheets = PriceSheet::orderBy('id', 'Desc')->get();
+        $price_sheets = PriceSheet::with(['square_foot', 'story', 'plan'])->where('type', null)->orderBy('id', 'Desc')->get();
         return view('dashboard.price_sheet.index', compact('price_sheets'));
     }
 
@@ -31,7 +31,7 @@ class PriceSheetController extends Controller
     {
         $square_foots = SquareFoot::orderBy('id', 'DESC')->get();
         $stories = Story::orderBy('id', 'DESC')->get();
-        $plans = Plan::orderBy('id', 'DESC')->get();
+        $plans = Plan::where('service_id', '!=', 10)->orderBy('id', 'DESC')->get();
         return view('dashboard.price_sheet.create', compact('square_foots', 'stories', 'plans'));
     }
 

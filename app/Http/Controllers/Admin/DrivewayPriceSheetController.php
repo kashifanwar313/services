@@ -18,7 +18,7 @@ class DrivewayPriceSheetController extends Controller
      */
     public function index()
     {
-        $price_sheets = PriceSheet::with(['plan', 'driveway_sidewaik_patios', 'nu_of_car'])->orderBy('id', 'Desc')->where('type', 'Driveway')->get();
+        $price_sheets = PriceSheet::with(['plan', 'driveway_sidewaik_patios', 'nu_of_car'])->where('type', 'Driveway')->orderBy('id', 'Desc')->get();
         return view('dashboard.drive_way_price_sheet.index', compact('price_sheets'));
     }
 
@@ -31,7 +31,7 @@ class DrivewayPriceSheetController extends Controller
     {
         $driveways = DrivewaySidewalkPatios::orderBy('id', 'DESC')->get();
         $no_of_cars = NuOfCar::orderBy('id', 'DESC')->get();
-        $plans = Plan::orderBy('id', 'DESC')->get();
+        $plans = Plan::where('service_id', 10)->orderBy('id', 'DESC')->get();
         return view('dashboard.drive_way_price_sheet.create', compact('driveways', 'no_of_cars', 'plans'));
     }
 
@@ -47,6 +47,7 @@ class DrivewayPriceSheetController extends Controller
             'driveway_sidewalk_patio_id' => 'required|integer',
             'nu_of_car_id' => 'required|integer',
             'plan_id' => 'required|integer',
+            'type' => 'Driveway',
             'price' => 'required|integer',
             'time' => 'required|string'
         ]);

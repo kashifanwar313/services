@@ -64,7 +64,7 @@ class QuoteController extends Controller
                     return response()->json([
                         'success' => 'Quoted Successfully With Hash ID: '. request()->quoteId,
                         'email' => json_decode($quote->contact)->email,
-                        'quoteId' => $quote->hash_id,
+                        'quote_id' => $quote->hash_id,
                         'status' => 200,
                         'quote_status' => $quote->quote_status
                     ]);
@@ -73,7 +73,7 @@ class QuoteController extends Controller
                 return response()->json([
                     'success' => 'Quoted Already Planned With Hash ID: '. request()->quoteId,
                     'email' => json_decode($quote->contact)->email,
-                    'quoteId' => $quote->hash_id,
+                    'quote_id' => $quote->hash_id,
                     'status' => 200,
                     'quote_status' => $quote->quote_status
                 ]);

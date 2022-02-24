@@ -92,9 +92,8 @@ class QuoteController extends Controller
     public function get_quote()
     {
         $quote = Quote::where('hash_id', request()->hash_id)->first();
-        $price_sheets = Plan::with(['service', 'price_sheet'])->whereIn('service_id', json_decode($quote->checkedServices))->get();
-
         if($quote){
+            $price_sheets = Plan::with(['service', 'price_sheet'])->whereIn('service_id', json_decode($quote->checkedServices))->get();
             return response()->json([
                 'price_sheets' => $price_sheets,
                 'quote_id' => $quote->hash_id,

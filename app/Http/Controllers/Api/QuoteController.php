@@ -94,7 +94,7 @@ class QuoteController extends Controller
         $quote = Quote::where('hash_id', request()->hash_id)->first();
         if($quote){
             return response()->json([
-                'price_sheets' => $quote,
+                'price_sheets' => array($quote),
                 'quote_id' => $quote->hash_id,
                 'email' => json_decode($quote->contact)->email,
                 'quote_status' => $quote->quote_status,

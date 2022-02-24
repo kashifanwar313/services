@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\PriceSheetController;
 use App\Http\Controllers\Admin\SquareFootController;
 use App\Http\Controllers\Admin\DrivewayPriceSheetController;
+use App\Http\Controllers\Api\QuoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +47,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('drive-way', DrivewayController::class)->names('drive.way');
     Route::resource('nu-of-cars', NuofcarController::class)->names('nu.of.cars');
     Route::resource('driveway-price-sheet', DrivewayPriceSheetController::class)->names('driveway.price.sheet');
+    Route::get('/quotes', [QuoteController::class, 'quotes'])->name('quotes');
+    Route::post('/quote-details', [QuoteController::class, 'quote_details'])->name('quote.details');
 });

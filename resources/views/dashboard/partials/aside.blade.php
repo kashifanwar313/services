@@ -27,6 +27,7 @@
       <li class="{{ request()->routeIs('questions.index') ? 'active' : '' }}"><a href="{{ route('drive.way.index') }}"><i class="fa fa-circle-o text-aqua"></i> <span>Driveway, Sidewalks and Patios</span></a></li>
       <li class="{{ request()->routeIs('questions.index') ? 'active' : '' }}"><a href="{{ route('nu.of.cars.index') }}"><i class="fa fa-circle-o text-red"></i> <span>Number Of Cars</span></a></li>
       <li class="{{ request()->routeIs('driveway.price.sheet.index') ? 'active' : '' }}"><a href="{{ route('driveway.price.sheet.index') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Driveway Price Sheets</span></a></li>
+      <li class="{{ request()->routeIs('quotes') ? 'active' : '' }}"><a href="{{ route('quotes') }}"><i class="fa fa-circle-o text-yellow"></i> <span>Quotes</span></a></li>
     </ul>
 </section>
 <!-- /.sidebar -->

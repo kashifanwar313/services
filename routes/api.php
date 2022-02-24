@@ -29,4 +29,4 @@ Route::get('/stories', [StoryController::class, 'stories']);
 Route::get('/square-foots', [SquareFootController::class, 'squareFoots']);
 Route::get('/driveway', [DrivewayController::class, 'driveway']);
 Route::get('/nu-of-cars', [NuofcarController::class, 'nu_of_cars']);
-Route::post('/quote', [QuoteController::class, 'quote']);
+Route::post('/create_quote', [QuoteController::class, 'create_quote']);

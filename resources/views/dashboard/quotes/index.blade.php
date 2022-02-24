@@ -48,6 +48,7 @@
                                     <th>Number Of Floor</th>
                                     <th>Square Foot</th>
                                     <th>Services</th>
+                                    <th>Download</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,10 +62,13 @@
                                         </td>
                                         <td>{{ $quote->story->story }}</td>
                                         <td>{{ $quote->houseSquareFootageKnow ? $quote->houseSquareFootageKnow : $quote->square_foot->square_foot }}</td>
-                                        <td id="services">
+                                        <td>
                                             @for($i=0; $i<count($quote->Services); $i++)
                                                 {{"=> ".App\Models\Service::where('id', $quote->Services[$i])->first()->name }}<br>
                                             @endfor
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" href="{{ URL::to('/quote/pdf') }}">Export to Excel</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,6 +80,7 @@
                                     <th>Number Of Floor</th>
                                     <th>Square Foot</th>
                                     <th>Services</th>
+                                    <th>Download</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -146,11 +151,11 @@
 
         }
 
-            $("#plan").on('change', function(){
-                let form = document.getElementById('planForm');
-                form.action = '/quotes';
-                form.submit();
-            });
+        $("#plan").on('change', function(){
+            let form = document.getElementById('planForm');
+            form.action = '/quotes';
+            form.submit();
+        });
     </script>
 
     <!-- DataTables -->

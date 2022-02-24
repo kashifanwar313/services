@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Models\Plan;
 use App\Models\Quote;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\QuotesExport;
+
+use PDF;
 
 class QuoteController extends Controller
 {
@@ -44,6 +47,53 @@ class QuoteController extends Controller
         }
     }
 
+    public function update_quote()
+    {
+        $quote = Quote::where('hash_id', request()->quoteId)->first();
+        if($quote)
+        {
+            $update_quote = $quote->update([
+                'plans_id' => json_encode(request()->selectedPlans),
+                'signature' => request()->signature,
+                'total_estimated_time' => request()->totalTime,
+                'total_amount' => request()->totalPrice
+            ]);
+            if($update_quote){
+                return response()->json([
+                    'success' => 'Quoted Successfully With Hash ID: '. request()->quoteId,
+                    'email' => json_decode($quote->contact)->email,
+                    'quoteId' => $quote->hash_id,
+                    'status' => 200
+                ]);
+            }
+        }
+        else
+        {
+            return response()->json([
+                'error' => 'No Quote Found With Hash ID: '. request()->quoteId,
+                'status' => 500
+            ]);
+        }
+    }
+
+    public function get_quote()
+    {
+        $quote = Quote::where('hash_id', request()->hash_id)->first();
+        if($quote){
+            return response()->json([
+                'price_sheets' => $quote,
+                'quote_id' => $quote->hash_id,
+                'email' => json_decode($quote->contact)->email
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => 'No Quote Found With Hash ID: '. request()->quoteId,
+                'status' => 500
+            ]);
+        }
+    }
+
     public function quotes()
     {
         $quotes = Quote::query();
@@ -59,5 +109,9 @@ class QuoteController extends Controller
     {
         $details = Quote::with('story')->where('id', request()->id)->orderBy('id', 'DESC')->get();
         return view('dashboard.quotes.details', compact('details'));
+    }
+
+    public function createPDF() {
+        return Excel::download(new QuotesExport, 'quotes.xlsx');
     }
 }

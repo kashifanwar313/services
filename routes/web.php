@@ -49,4 +49,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('driveway-price-sheet', DrivewayPriceSheetController::class)->names('driveway.price.sheet');
     Route::get('/quotes', [QuoteController::class, 'quotes'])->name('quotes');
     Route::post('/quote-details', [QuoteController::class, 'quote_details'])->name('quote.details');
+    Route::get('/quote/pdf', [QuoteController::class, 'createPDF']);
 });

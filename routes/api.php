@@ -30,3 +30,5 @@ Route::get('/square-foots', [SquareFootController::class, 'squareFoots']);
 Route::get('/driveway', [DrivewayController::class, 'driveway']);
 Route::get('/nu-of-cars', [NuofcarController::class, 'nu_of_cars']);
 Route::post('/create_quote', [QuoteController::class, 'create_quote']);
+Route::post('/update_quote', [QuoteController::class, 'update_quote']);
+Route::get('/get_quote', [QuoteController::class, 'get_quote']);

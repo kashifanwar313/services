@@ -151,7 +151,7 @@ class QuoteController extends Controller
 
     public function quote_details()
     {
-        $details = Quote::with('story')->where('id', request()->id)->orderBy('id', 'DESC')->get();
+        $details = Quote::where('id', request()->id)->orderBy('id', 'DESC')->get();
         return view('dashboard.quotes.details', compact('details'));
     }
 

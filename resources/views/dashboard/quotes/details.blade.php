@@ -16,6 +16,10 @@
                         <td>{{ $value }}</td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td>signature</td>
+                    <td>{{ $contact->signature }}</td>
+                </tr>
             @endforeach
           </table>
         </div>

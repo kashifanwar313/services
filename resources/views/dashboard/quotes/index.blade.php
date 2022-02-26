@@ -33,12 +33,17 @@
                             <form action="" method="GET" id="planForm">
                                 <select name="plan" id="plan" class="form-control">
                                     <option value="">Select Type</option>
-                                    <option value="2">Planed Quotes</option>
-                                    <option value="1">Unplaned Quotes</option>
-                                    <option value="3">Scheduled Quotes</option>
+                                    <option @if(request()->plan==2) selected @endif value="2">Planed Quotes</option>
+                                    <option @if(request()->plan==1) selected @endif value="1">Unplaned Quotes</option>
+                                    <option @if(request()->plan==3) selected @endif value="3">Scheduled Quotes</option>
                                 </select>
                             </form>
-                        </div><br><br><br>
+                        </div>
+                        <div class="pull-right">
+                            <a class="btn btn-primary" href="{{ URL::to('/quote/pdf') }}">Export to Excel</a>
+                        </div>
+
+                        <br><br><br>
 
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -48,7 +53,8 @@
                                     <th>Number Of Floor</th>
                                     <th>Square Foot</th>
                                     <th>Services</th>
-                                    <th>Download</th>
+                                    <th>Estimated Time</th>
+                                    <th>Total Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,9 +73,8 @@
                                                 {{"=> ".App\Models\Service::where('id', $quote->Services[$i])->first()->name }}<br>
                                             @endfor
                                         </td>
-                                        <td>
-                                            <a class="btn btn-primary" href="{{ URL::to('/quote/pdf') }}">Export to Excel</a>
-                                        </td>
+                                        <td>{{ $quote->total_estimated_time }}</td>
+                                        <td>{{ $quote->total_amount }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -80,7 +85,8 @@
                                     <th>Number Of Floor</th>
                                     <th>Square Foot</th>
                                     <th>Services</th>
-                                    <th>Download</th>
+                                    <th>Estimated Time</th>
+                                    <th>Total Amount</th>
                                 </tr>
                             </tfoot>
                         </table>

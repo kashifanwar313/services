@@ -13,6 +13,7 @@ class PriceSheet extends Model
         'square_foot_id',
         'story_id',
         'price',
+        'type',
         'time',
         'plan_id',
         'driveway_sidewalk_patio_id',

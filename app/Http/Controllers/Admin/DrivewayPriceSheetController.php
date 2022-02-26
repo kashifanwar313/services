@@ -45,12 +45,13 @@ class DrivewayPriceSheetController extends Controller
     {
         $validate_data = $request->validate([
             'driveway_sidewalk_patio_id' => 'required|integer',
-            'nu_of_car_id' => 'required|integer',
+            //'nu_of_car_id' => 'required|integer',
             'plan_id' => 'required|integer',
-            'type' => 'Driveway',
             'price' => 'required|integer',
             'time' => 'required|string'
         ]);
+
+        $validate_data['type'] = 'Driveway';
 
         $price_sheet = PriceSheet::create($validate_data);
 

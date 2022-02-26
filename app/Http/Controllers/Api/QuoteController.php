@@ -2,17 +2,33 @@
 
 namespace App\Http\Controllers\Api;
 
+use PDF;
 use App\Models\Plan;
 use App\Models\Quote;
+use App\Models\SquareFoot;
 use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\QuotesExport;
 
-use PDF;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuoteController extends Controller
 {
+    private function get_custom_square_foot($val)
+    {
+        $square_foot_id = '';
+        $square_foots = SquareFoot::select('id', 'square_foot')->get()->toArray();
+        foreach($square_foots as $sf)
+        {
+            $exp = explode('-', $sf['square_foot']);
+            if($val >= $exp[0] && $exp[1]=='Up')
+                $square_foot_id = $sf['id'];
+            else if($val >= $exp[0] && $val <= $exp[1])
+                $square_foot_id =  $sf['id'];
+        }
+        return $square_foot_id;
+    }
+
     public function create_quote()
     {
         $quote = Quote::create([
@@ -30,17 +46,30 @@ class QuoteController extends Controller
             'contact' => json_encode(request()->contact)
         ]) ;
         if($quote){
+            $square_foot='';
+            if(request()->has('houseSquareFootageKnow') && !empty(request()->houseSquareFootageKnow))
+                $square_foot = $this->get_custom_square_foot(request()->houseSquareFootageKnow);
+            else
+                $square_foot = request()->houseSquareFootageDontKnow;
+
             $query = Plan::query();
             if(count(request()->checkedServices) > 0){
-                $query = $query->with(['service', 'price_sheet'])->whereIn('service_id', request()->checkedServices)->get();
+                $query = $query->with('service')->with(['price_sheet' => function($q) use($square_foot){
+                    if(request()->has('driveway')){
+                    } else{
+                        $q->where('square_foot_id', $square_foot)
+                        ->where('story_id', request()->numOfFloors);
+                    }
+                }])
+                ->whereIn('service_id', request()->checkedServices)
+                ->get();
             }
             return response()->json([
                 'price_sheets' => $query,
                 'quote_id' => $quote->hash_id,
                 'email' => request()->contact['email']
             ]);
-        }
-        else{
+        } else{
             return response()->json([
                 'error' => 'An Unknown error occured'
             ]);

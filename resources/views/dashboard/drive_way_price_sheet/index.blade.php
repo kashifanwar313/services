@@ -47,7 +47,7 @@
                                     <tr>
                                         <td>{{ $price_sheet->id }}</td>
                                         <td>{{ $price_sheet->driveway_sidewaik_patios->name }}</td>
-                                        <td>{{ $price_sheet->nu_of_car->nu_of_cars }}</td>
+                                        <td>{{ $price_sheet->nu_of_car()->exists() ? $price_sheet->nu_of_car->nu_of_cars : 'null' }}</td>
                                         <td>{{ $price_sheet->plan->plan_name }}</td>
                                         <td>{{ $price_sheet->time }}</td>
                                         <td>{{ $price_sheet->price }}</td>
